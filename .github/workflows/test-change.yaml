@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - 'packages/**'
-      - '!packages/playground/**'
       - '.eslintrc.base.cjs'
       - 'tsconfig.json'
 
@@ -12,8 +11,6 @@ on:
       - 'package.json'
 
       - '.github/workflows/**'
-      - '*.dockerfile'
-      - 'docker-compose.yaml'
 
 jobs:
   audit:
@@ -56,7 +53,7 @@ jobs:
         run: npm ci
 
       - name: Build all workspaces
-        run: npm run build -w shared -w client -w server
+        run: npm run build -ws
 
   test:
     needs:
@@ -65,9 +62,7 @@ jobs:
     strategy:
       matrix:
         workspace:
-          - client
-          - server
-          - shared
+          - utils
         os:
           - ubuntu-latest
           - macos-latest
@@ -80,7 +75,7 @@ jobs:
           node-version-file: '/.nvmrc'
 
       - name: Install dependencies of '${{ matrix.workspace }}'
-        run: npm ci --workspace shared --workspace ${{ matrix.workspace }}
+        run: npm ci --workspace ${{ matrix.workspace }}
 
       - name: Test '${{ matrix.workspace }}' on ${{ matrix.os }}
         run: npm --workspace ${{ matrix.workspace }} test
