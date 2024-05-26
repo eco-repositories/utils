@@ -75,5 +75,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # see https://github.com/vitejs/vite/discussions/15532
+      - if: matrix.os == 'ubuntu-latest'
+        name: Fix missing Linux-specific dependency issue
+        run: npm i -ws --no-save @rollup/rollup-linux-x64-gnu
+
+      # see https://github.com/vitejs/vite/discussions/15532
+      - if: matrix.os == 'windows-latest'
+        name: Fix missing Windows-specific dependency issue
+        run: npm i -ws --no-save @rollup/rollup-win32-x64-msvc
+
       - name: Test on ${{ matrix.os }}
         run: npm test -ws
