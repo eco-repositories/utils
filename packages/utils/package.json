@@ -31,5 +31,8 @@
     "tsc-alias": "1.8.10",
     "typescript": "*",
     "vitest": "1.0.1"
+  },
+  "dependencies": {
+    "ms": "2.1.3"
   }
 }
