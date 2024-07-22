@@ -4,12 +4,9 @@ on:
   push:
     paths:
       - 'packages/**'
-      - '.eslintrc.base.cjs'
+      - '.eslintrc.jsonc'
       - 'tsconfig.json'
-
-      - 'package-lock.json'
-      - 'package.json'
-
+      - 'package*.json'
       - '.github/workflows/**'
 
 jobs:
